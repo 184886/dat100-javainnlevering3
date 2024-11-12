@@ -87,4 +87,15 @@ public class Blogg {
         }
         return false;
     }
-}
+    public boolean slett(Innlegg innlegg) {
+		for (int i = 0; i < nesteledig; i++) {
+			if (innleggtabell[i].getId() == innlegg.getId()) {
+				innleggtabell[i] = innleggtabell[nesteledig - 1];
+				innleggtabell[nesteledig - 1] = null;
+				nesteledig--;
+				return true;
+			}
+		}
+		return false;
+	}
+} //hei
