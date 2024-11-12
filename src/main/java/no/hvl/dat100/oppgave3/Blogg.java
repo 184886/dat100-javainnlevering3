@@ -98,4 +98,4 @@ public class Blogg {
 		}
 		return false;
 	}
-} //hei
+} //hei,
