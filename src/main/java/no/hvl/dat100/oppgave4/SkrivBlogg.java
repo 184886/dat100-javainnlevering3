@@ -1,24 +1,40 @@
 package no.hvl.dat100.oppgave4;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.FileReader;
+import java.io.IOException;
+
 import no.hvl.dat100.oppgave3.Blogg;
 
 public class SkrivBlogg {
 
-    public static boolean skriv(Blogg samling, String mappe, String filnavn) {
-        // Kombiner mappe og filnavn til en full filbane
-        String filbane = mappe + File.separator + filnavn;
-        
-        // Bruk try-catch for å håndtere filskriving
-        try (PrintWriter writer = new PrintWriter(filbane)) {
-            // Skriv hele blogg-samlingen til fil ved hjelp av toString-metoden
-            writer.print(samling.toString());
-            return true;
-        } catch (FileNotFoundException e) {
-            System.out.println("Fil ikke funnet eller kan ikke skrives: " + e.getMessage());
-            return false;
-        }
-    }
+	public static boolean skriv(Blogg samling, String mappe, String filnavn) {
+try {
+		File file = new File(mappe + filnavn);
+		if (!file.exists()) {
+			throw new FileNotFoundException(filnavn + "Ikkje funnet");
+		}
+		
+		FileReader fr = new FileReader(file);
+		
+		BufferedReader bf = new BufferedReader(fr);
+		
+		String line;
+		while((line = bf.readLine()) != null) {
+			System.out.println(line);
+		}
+		bf.close();
+		return true;
+} catch (FileNotFoundException e) {
+	System.out.println("Kan ikkje finne filen");
+	e.printStackTrace();
+	return false;
+} catch (IOException e) {
+	System.out.println("Det skjedde ein feil med lesing av fil");
+	e.printStackTrace();
+	return false;
+}
+	}
 }
